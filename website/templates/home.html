@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoşgeldiniz!</title>
+</head>
+<body>
+    <div class="w-50">
+        {% block content %}
+            {% if user.is_authenticated %}
+                <div class="d-flex flex-row justify-content-between mb-1">
+                    <h1>Records</h1>
+                    <button type="submit" class="btn btn-white"><a href="{% url 'add_record' %}"><i class="fa fa-plus"></i></a></button>
+                </div>
+                {% if records %}
+                    <table class="table table-striped table-hover table-dark table-borderless">
+                        <thead>
+                        <tr class="table-active">
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Zipcode</th>
+                            <th scope="col">Created At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records %}
+                                <tr>
+                                    <td>{{record.id}}</td>
+                                    <td><a href="{% url 'record' record.id %}">{{record.first_name}} {{record.last_name}}</a></td>
+                                    <td>{{record.email}}</td>
+                                    <td>{{record.phone}}</td>
+                                    <td>{{record.address}}</td>
+                                    <td>{{record.city}}</td>
+                                    <td>{{record.state}}</td>
+                                    <td>{{record.zip_code}}</td>
+                                    <td>{{record.created_at}}</td>
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                {% endif %}
+        {% endblock content %}
+    </div>
+</body>
+</html>
